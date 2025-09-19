@@ -1,0 +1,8 @@
+{
+  "name": "Bookish",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite",
+  "id": "f339b288"
+}
