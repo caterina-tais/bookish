@@ -1,11 +1,23 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App';
+// src/main.tsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import { Auth0Provider } from "@auth0/auth0-react";
 
-const container = document.getElementById('root');
-const root = createRoot(container!);
-root.render(
+/* Ionic core setup */
+import { setupIonicReact } from "@ionic/react";
+setupIonicReact();
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <Auth0Provider
+      domain={import.meta.env.VITE_AUTH0_DOMAIN!}        // Tu dominio Auth0
+      clientId={import.meta.env.VITE_AUTH0_CLIENT_ID!}  // Tu Client ID Auth0
+      authorizationParams={{
+        redirect_uri: "myapp://callback", // Scheme que registraste en Auth0
+      }}
+    >
+      <App />
+    </Auth0Provider>
   </React.StrictMode>
 );

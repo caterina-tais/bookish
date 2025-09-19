@@ -1,22 +1,26 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Tab1.css';
+// src/pages/Tab1.tsx
+import { IonContent, IonPage } from "@ionic/react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { LoginButton } from "../components/loginButton";
+import { LogoutButton } from "../components/logoutButton";
+import { Profile } from "../components/profile";
 
 const Tab1: React.FC = () => {
+  const { isAuthenticated, isLoading } = useAuth0();
+
+  if (isLoading) return <IonPage><IonContent>Cargando...</IonContent></IonPage>;
+
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Tab 1</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 1</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Tab 1 page" />
+      <IonContent className="ion-padding">
+        {!isAuthenticated ? (
+          <LoginButton />
+        ) : (
+          <>
+            <Profile />
+            <LogoutButton />
+          </>
+        )}
       </IonContent>
     </IonPage>
   );
